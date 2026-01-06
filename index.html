@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Welcome</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+  text-align: center;
+  overflow: hidden;
+}
+
+.section {
+  display: none;
+  padding-top: 100px;
+}
+
+.active {
+  display: block;
+}
+
+h1 {
+  animation: fadeIn 2s ease-in-out;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#wish {
+  font-size: 24px;
+  animation: fadeIn 2s;
+}
+
+#photos img {
+  width: 250px;
+  border-radius: 20px;
+  animation: zoom 3s infinite alternate;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes zoom {
+  from {transform: scale(1);}
+  to {transform: scale(1.1);}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" autoplay>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<div id="welcome" class="section active">
+  <h1>Welcome 😊</h1>
+  <button onclick="nextSection('name')">Continue</button>
+</div>
+
+<div id="name" class="section">
+  <h1>Enter your name</h1>
+  <input id="username" placeholder="Your name">
+  <br><br>
+  <button onclick="showWishes()">Continue</button>
+</div>
+
+<div id="wishes" class="section">
+  <div id="wish"></div>
+</div>
+
+<div id="line" class="section">
+  <h1>Always keep smiling and stay happy 🌸</h1>
+</div>
+
+<div id="photos" class="section">
+  <img id="slide" src="photo1.jpg">
+</div>
+
+<script>
+const wishes = [
+  "Wishing you happiness 😊",
+  "May all your dreams come true ✨",
+  "Keep smiling always 🌼"
+];
+
+let wishIndex = 0;
+let photoIndex = 1;
+
+function nextSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function showWishes() {
+  nextSection('wishes');
+  showWish();
+}
+
+function showWish() {
+  if (wishIndex < wishes.length) {
+    document.getElementById('wish').innerText = wishes[wishIndex];
+    wishIndex++;
+    setTimeout(showWish, 3000);
+  } else {
+    setTimeout(() => nextSection('line'), 15000);
+    setTimeout(showPhotos, 18000);
+  }
+}
+
+function showPhotos() {
+  nextSection('photos');
+  setInterval(() => {
+    photoIndex++;
+    if (photoIndex > 4) photoIndex = 1;
+    document.getElementById('slide').src = "photo" + photoIndex + ".jpg";
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
