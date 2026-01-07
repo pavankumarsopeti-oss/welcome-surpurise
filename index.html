@@ -82,9 +82,7 @@ button {
 </div>
 
 <div id="line" class="section">
-  <h1> Hi Madhu ala vunnav 
-  nikemi nuvvu bane vuntavle
-  ponile nikku okka chinna wishes </h1>
+  <h1> TAKE A LOOK  </h1>
 </div>
 
 <div id="photos" class="section">
@@ -93,6 +91,9 @@ button {
 
 <script>
 const wishes = [
+  "Hi Madhu",
+  "Ala Vunnav nikkemi nuvvu bane vuntav le",
+  "ponile nikku okka chinna wishes chepalli",
   "Happy valantine's day Dr.Pilla",
   "I Love U so much ",
   "Nenu nikku nachano ledho nakku telidhu",
@@ -127,7 +128,12 @@ function showWish() {
     setTimeout(showPhotos, 18000);
   }
 }
+  
+<audio id="bgm" autoplay>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
 
+  
 function showPhotos() {
   nextSection('photos');
   setInterval(() => {
