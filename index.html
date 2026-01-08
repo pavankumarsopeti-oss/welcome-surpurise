@@ -2,142 +2,156 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Welcome</title>
+<title>Valentine Surprise 💖</title>
+
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff4e8a, #ff9a9e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   overflow: hidden;
 }
 
-.section {
+/* Floating hearts */
+.heart {
+  position: absolute;
+  color: rgba(255,255,255,0.7);
+  font-size: 20px;
+  animation: float 6s infinite linear;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+.screen {
   display: none;
-  padding-top: 100px;
 }
 
 .active {
   display: block;
 }
 
-h1 {
-  animation: fadeIn 2s ease-in-out;
+.caption {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 15px;
 }
 
-input {
-  padding: 10px;
-  font-size: 16px;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 16px;
+.btn {
+  padding: 15px 40px;
+  font-size: 22px;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(45deg, #ff0844, #ff5f6d);
+  color: white;
   cursor: pointer;
+  box-shadow: 0 0 20px rgba(255,0,100,0.6);
+  animation: pulse 1.5s infinite;
 }
 
-#wish {
-  font-size: 24px;
-  animation: fadeIn 2s;
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
-#photos img {
-  width: 250px;
-  border-radius: 20px;
-  animation: zoom 3s infinite alternate;
+#wishes {
+  font-size: 28px;
+  color: #fff;
+  animation: fadeIn 2s ease;
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes zoom {
-  from {transform: scale(1);}
-  to {transform: scale(1.1);}
+/* Slideshow */
+#slideshow img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: loveSlide 4s infinite;
+}
+
+@keyframes loveSlide {
+  0% { opacity: 0; transform: scale(1.2); }
+  10% { opacity: 1; transform: scale(1); }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<audio id="bgm" autoplay>
-  <source src="song.mp3" type="audio/mpeg">
-</audio>
+<!-- Floating hearts -->
+<script>
+for(let i=0;i<25;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDelay=Math.random()*5+"s";
+  h.style.fontSize=(15+Math.random()*20)+"px";
+  document.body.appendChild(h);
+}
+</script>
 
-<div id="welcome" class="section active">
-  <h1>Welcome 😊</h1>
-  <button onclick="nextSection('name')">Continue</button>
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
+  <div class="caption">Hold your excitement and press continue 💕</div>
+  <button class="btn" onclick="goNext()">Continue 💖</button>
 </div>
 
-<div id="name" class="section">
-  <h1>Enter your name</h1>
-  <input id="username" placeholder="Your name">
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+  <div id="wishes">A little love is coming your way 💘</div>
   <br><br>
-  <button onclick="showWishes()">Continue</button>
+  <div class="caption">Click start to enter into the Pavan's world 💞</div>
+  <button class="btn" onclick="startShow()">Start ❤️</button>
 </div>
 
-<div id="wishes" class="section">
-  <div id="wish"></div>
+<!-- SLIDESHOW -->
+<div id="slideshow" class="screen">
+  <img src="photo1.jpg" style="animation-delay:0s">
+  <img src="photo2.jpg" style="animation-delay:4s">
+  <img src="photo3.jpg" style="animation-delay:8s">
+  <img src="photo4.jpg" style="animation-delay:12s">
 </div>
 
-<div id="line" class="section">
-  <h1>TAKE A LOOK</h1>
-</div>
-
-<div id="photos" class="section">
-  <img id="slide" src="photo1.jpg">
-</div>
+<audio id="song" src="song.mp3"></audio>
 
 <script>
-const wishes = [
-  "Hi Madhu",
-  "Ala Vunnav nikkemi nuvvu bane vuntav le",
-  "ponile nikku okka chinna wishes chepalli",
-  "Happy valantine's day Dr.Pilla",
-  "I Love U so much ",
-  "Nenu nikku nachano ledho nakku telidhu",
-  "kanni nuvvu anthe nakku chala estam",
-  "kanni aa estani ala express cheyalo telidhu",
-  "kanni na intention okkate",
-  "I will love u end till my last breath",
-  "So think about my proposel",
-  "once again I love U"
-];
-
-let wishIndex = 0;
-let photoIndex = 1;
-
-function nextSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+function goNext() {
+  screen1.classList.remove("active");
+  screen2.classList.add("active");
 }
 
-function showWishes() {
-  nextSection('wishes');
-  showWish();
-}
+function startShow() {
+  screen2.classList.remove("active");
+  slideshow.classList.add("active");
 
-function showWish() {
-  if (wishIndex < wishes.length) {
-    document.getElementById('wish').innerText = wishes[wishIndex];
-    wishIndex++;
-    setTimeout(showWish, 3000);
-  } else {
-    setTimeout(() => nextSection('line'), 15000);
-    setTimeout(showPhotos, 18000);
-  }
-} 
-function showPhotos() {
-  nextSection('photos');
-  setInterval(() => {
-    photoIndex++;
-    if (photoIndex > 4) photoIndex = 1;
-    document.getElementById('slide').src = "photo" + photoIndex + ".jpg";
-  }, 3000);
+  const song = document.getElementById("song");
+  song.play();
+
+  // stop after last photo
+  setTimeout(()=>{
+    song.pause();
+    song.currentTime = 0;
+  },16000);
 }
 </script>
 
 </body>
-  <!-- redeploy -->
 </html>
