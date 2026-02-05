@@ -154,21 +154,21 @@ let heartInterval;
 function startHearts(){
   heartInterval = setInterval(()=>{
     // VERY RARE hearts
-    if(Math.random() > 0.8) return;   // 
+    if(Math.random() > 0.1) return;   // 
 
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "💖";
 
-    heart.style.left = (20 + Math.random()*60) + "vw"; // middle area only
-    heart.style.fontSize = (16 + Math.random()*4) + "px";
+    heart.style.left = (20 + Math.random()*20) + "vw"; // middle area only
+    heart.style.fontSize = (10 + Math.random()*4) + "px";
 
     // Slow start, little faster exit
-    heart.style.animationDuration = (18 + Math.random()*4) + "s";
+    heart.style.animationDuration = (10 + Math.random()*4) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),22000);
+    setTimeout(()=>heart.remove(),10000);
   }, 3500); // 
 }
 
