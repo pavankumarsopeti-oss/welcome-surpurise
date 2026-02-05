@@ -46,11 +46,24 @@ h1{font-size:38px;}
   100%{transform:scale(1);}
 }
 
-/* TYPEWRITER */
 #line{
   font-size:24px;
-  min-height:40px;
+  min-height:70px;
   margin:20px 0;
+}
+
+/* HEARTS */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:float 8s linear infinite;
+  opacity:0.6;
+}
+
+@keyframes float{
+  from{transform:translateY(0);}
+  to{transform:translateY(-120vh);}
 }
 
 /* SLIDESHOW */
@@ -71,8 +84,8 @@ h1{font-size:38px;}
 }
 
 .slide img{
-  max-width:100%;
-  max-height:100%;
+  max-width:95%;
+  max-height:95%;
   object-fit:contain;
 }
 
@@ -108,7 +121,7 @@ h1{font-size:38px;}
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-/* SHOW CONTINUE AFTER 3 SEC */
+/* CONTINUE BUTTON AFTER 3 SEC */
 setTimeout(()=>{
   document.getElementById("continueBox").style.display="block";
 },3000);
@@ -116,104 +129,102 @@ setTimeout(()=>{
 function goContinue(){
   screen1.classList.remove("active");
   screen2.classList.add("active");
-  startTyping();
+  playLine();
 }
 
-/* ROMANTIC LINES */
-const lines=[
-  "Hi Madhu ala vunnav nikku ami nuvvu bane vunatav le",
-  "Anthi edhu msg cheyadam ledhu marchipoyadu ani anukuntunnava anthi",
-  "Alanti alochanalu avainna vunthe delete chessai ok na",
-  "Inna nenu msg chesinna nuvvu busy kadha reply evavu kadha",
-  "Andukey nikku msg chessi enduku disturb cheyadam ani msg cheyaledhu ok na",
-  "Ponile gani nikku okka chinna vishayam chepadaniki vacha adhi",
-  "Eroju Propose Day nikku teluso ledho marri😅",
-  "Inna teliyaka poinna nenu vunna ga gurthu cheyadaniki😜",
-  "Inna prathi sari msgs lo cheputhe ame baguntadhi ani ela try chessa ok na😁",
-  "So",
-  "HAPPY PROPOSE DAY Madhu🌹😘",
-  "AND",
-  "LOVE U SO MUCH ra ❤️❤️❤️❤️",
-  "Nikku estamo ledho nakku telidhu kanni😔",
-  "I will dont stop loving u till end of my last breath🫶",
-  "So koncham na proposal gurinchi alochinchu ok na🥺",
-  "Nuvvu alochinchi proposal accept chesthe ee valentain day jarupukuntam",
-  "Adhi kuda with your permission nuvvu ledhu anthe ledhu🤐",
-  "Ok na koncham alochinchu papa plsssss🤌🤌",
-  "Eppudu two lines vastai chudu",
-  "Love is a feeling that words can never explain 💖",
-  "Every heartbeat feels special when i think about u 💕",
-  "Last lo vachinna line matram nuvvu accept chesinna cheyakapoinna adhi nijam",
-  "And once again Happy Propose Day🌹😘",
-  "Love u soooooo much ❤️❤️❤️❤️❤️"
+/* 🔥 ALL LINES (MAX SUPPORTED) */
+const lines = [
+ "Hi madhu ala vunnav nikku ami nuvvu bane vunatav le",
+ "Anthi edhu msg cheyadam ledhu marchipoyadu ani anukuntunnava anthi",
+ "Alanti alochanalu avainna vunthe delete chessai ok na",
+ "Inna nenu msg chesinna nuvvu busy kadha reply evavu kadha",
+ "Andukey nikku msg chessi enduku disturb cheyadam ani msg cheyaledhu",
+ "Ponile gani nikku okka chinna vishayam chepadaniki vacha",
+ "Eroju Propose Day nikku teluso ledho marri 😅",
+ "Inna teliyaka poinna nenu vunna ga gurthu cheyadaniki 😜",
+ "So HAPPY PROPOSE DAY MADHU🌹😘",
+ "LOVE U SO MUCH ❤️❤️❤️❤️",
+ "Nikku estamo ledho nakku telidhu kani",
+ "I will not stop loving you till my last breath",
+ "So koncham na proposal gurinchi alochinchu ok na",
+ "Nuvvu accept chesthe ee valentines day jarupukuntam",
+ "With your permission matrame",
+ "Ok na papa please 🥺",
+ "Love is a feeling words can’t explain 💖",
+ "Every heartbeat feels special when I think about you 💕",
+ "Once again Happy Propose Day 🌹",
+ "Love you forever ❤️"
 ];
 
-let lineIndex=0;
-let charIndex=0;
+let currentLine = 0;
+const lineDiv = document.getElementById("line");
 
-function startTyping(){
-  if(lineIndex>=lines.length){
-    document.getElementById("startBox").style.display="block";
+function playLine(){
+  if(currentLine >= lines.length){
+    document.getElementById("startBox").style.display = "block";
     return;
   }
 
-  const text=lines[lineIndex];
-  const lineDiv=document.getElementById("line");
+  lineDiv.innerHTML = lines[currentLine];
 
-  if(charIndex<text.length){
-    lineDiv.innerHTML+=text.charAt(charIndex);
-    charIndex++;
-    setTimeout(startTyping,60);
-  }else{
-    setTimeout(()=>{
-      lineDiv.innerHTML="";
-      charIndex=0;
-      lineIndex++;
-      startTyping();
-    },1200);
-  }
+  const voice = new Audio(`line${currentLine+1}.mp3`);
+  voice.play();
+
+  voice.onended = () => {
+    currentLine++;
+    setTimeout(playLine, 900);
+  };
 }
+
+/* HEARTS */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  h.style.fontSize=(14+Math.random()*22)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
+},450);
 
 /* SLIDESHOW + SONG */
 function startShow(){
   screen2.classList.remove("active");
   slideshow.classList.add("active");
 
-  const song=document.getElementById("song");
   let slides=[];
   let i=1;
+  const song=document.getElementById("song");
 
-  function loadNext(){
+  function load(){
     const img=new Image();
     img.src=`photo${i}.jpg`;
     img.onload=()=>{
-      const div=document.createElement("div");
-      div.className="slide";
-      div.appendChild(img);
-      slideshow.appendChild(div);
-      slides.push(div);
+      const d=document.createElement("div");
+      d.className="slide";
+      d.appendChild(img);
+      slideshow.appendChild(d);
+      slides.push(d);
       i++;
-      loadNext();
+      load();
     };
   }
-  loadNext();
+  load();
 
   setTimeout(()=>{
-    let index=0;
     if(slides.length===0) return;
-
+    let idx=0;
     slides[0].classList.add("active");
     song.play();
 
-    const interval=setInterval(()=>{
-      slides[index].classList.remove("active");
-      index++;
-      if(index>=slides.length){
-        clearInterval(interval);
+    const inter=setInterval(()=>{
+      slides[idx].classList.remove("active");
+      idx++;
+      if(idx>=slides.length){
+        clearInterval(inter);
         song.pause();
-        song.currentTime=0;
       }else{
-        slides[index].classList.add("active");
+        slides[idx].classList.add("active");
       }
     },4000);
   },800);
