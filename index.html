@@ -152,16 +152,22 @@ function goContinue(){
 let heartInterval;
 
 function startHearts(){
-  heartInterval=setInterval(()=>{
-  const heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="💖";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(12+Math.random()*5)+"s";
-  document.body.appendChild(heart);
+  heartInterval = setInterval(()=>{
+    // Only sometimes create a heart
+    if(Math.random() > 0.55) return;  // 👈 controls density
 
-  setTimeout(()=>heart.remove(),17000);
-},2500); 
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = (10 + Math.random()*80) + "vw"; // not full screen
+    heart.style.fontSize = (16 + Math.random()*6) + "px";
+    heart.style.animationDuration = (14 + Math.random()*6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),20000);
+  }, 3000); // 
 }
 
 function stopHearts(){
@@ -180,7 +186,7 @@ const lines=[
  "Eroju Propose Day nikku teluso ledho marri 😅",
  "Inna teliyaka poinna nenu vunna ga gurthu cheyadaniki 😜",
  "So HAPPY PROPOSE DAY MADHU🌹😘",
- "LOVE U SO MUCH ❤️❤️❤️❤️",
+ "LOVE U SO MUCH RA ❤️❤️❤️❤️",
  "Nikku estamo ledho nakku telidhu kani",
  "I will not stop loving you till my last breath",
  "So koncham na proposal gurinchi alochinchu ok na",
@@ -190,7 +196,7 @@ const lines=[
  "Love is a feeling words can’t explain 💖",
  "Every heartbeat feels special when I think about you 💕",
  "NUvvu accept chesinna cheyakapoinna last line matram nijam",
- "Once again Happy Propose Day 🌹",
+ "Once again Happy Propose Day Madhu🌹",
  "Love you sooooo much ❤️"
 ];
 
