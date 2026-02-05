@@ -153,14 +153,15 @@ let heartInterval;
 
 function startHearts(){
   heartInterval=setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="💖";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(9+Math.random()*4)+"s";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),13000);
-  },1200); /* GAP between hearts */
+  const heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerHTML="💖";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.animationDuration=(12+Math.random()*5)+"s";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),17000);
+},2500); 
 }
 
 function stopHearts(){
