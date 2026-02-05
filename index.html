@@ -153,21 +153,23 @@ let heartInterval;
 
 function startHearts(){
   heartInterval = setInterval(()=>{
-    // Only sometimes create a heart
-    if(Math.random() > 0.55) return;  // 👈 controls density
+    // VERY RARE hearts
+    if(Math.random() > 0.8) return;   // 
 
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "💖";
 
-    heart.style.left = (10 + Math.random()*80) + "vw"; // not full screen
-    heart.style.fontSize = (16 + Math.random()*6) + "px";
-    heart.style.animationDuration = (14 + Math.random()*6) + "s";
+    heart.style.left = (20 + Math.random()*60) + "vw"; // middle area only
+    heart.style.fontSize = (16 + Math.random()*4) + "px";
+
+    // Slow start, little faster exit
+    heart.style.animationDuration = (18 + Math.random()*4) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),20000);
-  }, 3000); // 
+    setTimeout(()=>heart.remove(),22000);
+  }, 3500); // 
 }
 
 function stopHearts(){
