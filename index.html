@@ -56,17 +56,17 @@ h1{font-size:38px;}
   min-height:40px;
   margin:20px 0;
   position:relative;
-  z-index:2; /* hearts behind text */
+  z-index:2; /* above hearts */
 }
 
 /* ===== FLOATING HEARTS ===== */
 .heart{
   position:absolute;
-  bottom:-30px;
-  font-size:24px;
+  bottom:-40px;
+  font-size:20px;
   color:#b3005e; /* dark heart */
-  animation:floatUp 10s linear infinite;
   opacity:0.6;
+  animation:floatUp linear;
   z-index:1; /* behind text */
 }
 
@@ -137,7 +137,7 @@ h1{font-size:38px;}
 <audio id="song" src="song.mp3"></audio>
 
 <script>
-/* ===== CONTINUE AFTER 3.5 SEC ===== */
+/* ===== CONTINUE BUTTON DELAY ===== */
 setTimeout(()=>{
   document.getElementById("continueBox").style.display="block";
 },3500);
@@ -148,58 +148,60 @@ function goContinue(){
   startTyping();
 }
 
-/* ===== FLOATING HEARTS ===== */
-let heartInterval;
+/* ===== HEART CONTROL ===== */
+let heartInterval = null;
 
 function startHearts(){
+  if(heartInterval) return;
+
   heartInterval = setInterval(()=>{
-    // VERY RARE hearts
-    if(Math.random() > 0.1) return;   // 
+    // VERY RARE + RANDOM
+    if(Math.random() > 0.9) return;
 
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "💖";
 
-    heart.style.left = (20 + Math.random()*20) + "vw"; // middle area only
-    heart.style.fontSize = (10 + Math.random()*4) + "px";
-
-    // Slow start, little faster exit
-    heart.style.animationDuration = (10 + Math.random()*4) + "s";
+    heart.style.left = (15 + Math.random()*70) + "vw";
+    heart.style.fontSize = (16 + Math.random()*4) + "px";
+    heart.style.animationDuration = (18 + Math.random()*4) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),10000);
-  }, 3500); // 
+    setTimeout(()=>heart.remove(),22000);
+  }, 5000); // 🔥 BIG GAP between hearts
 }
 
 function stopHearts(){
-  clearInterval(heartInterval);
+  if(heartInterval){
+    clearInterval(heartInterval);
+    heartInterval = null;
+  }
   document.querySelectorAll(".heart").forEach(h=>h.remove());
 }
 
 /* ===== ROMANTIC LINES ===== */
 const lines=[
-  "Hi madhu ala vunnav nikku ami nuvvu bane vunatav le",
+"Hi madhu ala vunnav nikku ami nuvvu bane vunatav le",
  "Anthi edhu msg cheyadam ledhu marchipoyadu ani anukuntunnava anthi",
  "Alanti alochanalu avainna vunthe delete chessai ok na",
- "Inna nenu msg chesinna nuvvu busy kadha reply evavu kadha",
+ "Inna nenu msg chesinna nuvvu busy kadha",
  "Andukey nikku msg chessi enduku disturb cheyadam ani msg cheyaledhu",
  "Ponile gani nikku okka chinna vishayam chepadaniki vacha",
  "Eroju Propose Day nikku teluso ledho marri 😅",
  "Inna teliyaka poinna nenu vunna ga gurthu cheyadaniki 😜",
  "So HAPPY PROPOSE DAY MADHU🌹😘",
- "LOVE U SO MUCH RA ❤️❤️❤️❤️",
+ "LOVE U SO MUCH ❤️❤️❤️❤️",
  "Nikku estamo ledho nakku telidhu kani",
  "I will not stop loving you till my last breath",
  "So koncham na proposal gurinchi alochinchu ok na",
  "Nuvvu accept chesthe ee valentines day jarupukuntam",
  "With your permission matrame",
- "Ok na papa alochinchu plsss 🥺",
+ "Ok na papa please 🥺",
  "Love is a feeling words can’t explain 💖",
  "Every heartbeat feels special when I think about you 💕",
- "NUvvu accept chesinna cheyakapoinna last line matram nijam",
- "Once again Happy Propose Day Madhu🌹",
- "Love you sooooo much ❤️"
+ "Once again Happy Propose Day 🌹",
+ "Love you forever ❤️"
 ];
 
 let lineIndex=0;
@@ -218,7 +220,7 @@ function startTyping(){
   if(charIndex < lines[lineIndex].length){
     lineDiv.innerHTML += lines[lineIndex].charAt(charIndex);
     charIndex++;
-    setTimeout(startTyping,90); /* SLOWER typing */
+    setTimeout(startTyping,90); // slow typing
   }else{
     setTimeout(()=>{
       lineDiv.innerHTML="";
@@ -229,9 +231,10 @@ function startTyping(){
   }
 }
 
-/* ===== SLIDESHOW + SONG ===== */
+/* ===== PHOTOS + SONG ===== */
 function startShow(){
-  stopHearts();
+  stopHearts(); // ❌ NO HEARTS AFTER THIS
+
   screen2.classList.remove("active");
   slideshow.classList.add("active");
 
