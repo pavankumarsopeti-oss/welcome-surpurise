@@ -164,12 +164,12 @@ function startHearts(){
 
     heart.style.left = (15 + Math.random()*70) + "vw";
     heart.style.fontSize = (16 + Math.random()*4) + "px";
-    heart.style.animationDuration = (12 + Math.random()*3) + "s";
+    heart.style.animationDuration = (9 + Math.random()*2) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),22000);
-  }, 2500); // 🔥 BIG GAP between hearts
+    setTimeout(()=>heart.remove(),20000);
+  }, 1000); // 🔥 BIG GAP between hearts
 }
 
 function stopHearts(){
