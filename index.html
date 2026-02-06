@@ -52,12 +52,15 @@ h1{font-size:38px;}
 
 /* ===== TYPEWRITER ===== */
 #line{
-  font-size:24px;
-  min-height:40px;
+  font-size:25px;
+  min-height:45px;
   margin:20px 0;
   position:relative;
-  z-index:2; /* above hearts */
+  z-index:2;
+  color:#3b0020;     /* dark romantic color */
+  font-weight:700;   /* thick text */
 }
+
 
 /* ===== FLOATING HEARTS ===== */
 .heart{
@@ -65,7 +68,7 @@ h1{font-size:38px;}
   bottom:-40px;
   font-size:20px;
   color:#b3005e; /* dark heart */
-  opacity:0.6;
+  opacity:0.8;
   animation:floatUp linear;
   z-index:1; /* behind text */
 }
@@ -168,7 +171,7 @@ function startHearts(){
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),55000);
+    setTimeout(()=>heart.remove(),5000);
   }, 500); // 🔥 BIG GAP between hearts
 }
 
