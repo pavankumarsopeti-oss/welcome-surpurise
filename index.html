@@ -5,12 +5,11 @@
 <title>Welcome 💖</title>
 
 <style>
-/* ===== BODY ===== */
 body{
   margin:0;
   height:100vh;
   font-family:'Segoe UI',sans-serif;
-  background:#ffd6e8; /* light pink */
+  background:#ffd6e8;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -19,19 +18,16 @@ body{
   color:#4a0033;
 }
 
-/* ===== SCREENS ===== */
 .screen{display:none;}
 .active{display:block;}
 
 h1{font-size:38px;}
 
-/* ===== CAPTION ===== */
 .caption{
   font-size:18px;
   margin-top:15px;
 }
 
-/* ===== BUTTON ===== */
 .btn{
   margin-top:20px;
   padding:14px 40px;
@@ -50,42 +46,35 @@ h1{font-size:38px;}
   100%{transform:scale(1);}
 }
 
-/* ===== TYPEWRITER ===== */
+/* TYPEWRITER */
 #line{
   font-size:25px;
   min-height:45px;
   margin:20px 0;
   position:relative;
   z-index:2;
-  color:#3b0020;     /* dark romantic color */
-  font-weight:700;   /* thick text */
+  color:#3b0020;
+  font-weight:700;
 }
 
-
-/* ===== FLOATING HEARTS ===== */
+/* FLOATING HEARTS */
 .heart{
   position:absolute;
   bottom:-40px;
   font-size:20px;
-  color:#b3005e; /* dark heart */
-  opacity:0.8;
+  color:#b3005e;
+  opacity:0.6;
   animation:floatUp linear;
-  z-index:1; /* behind text */
+  z-index:1;
 }
 
 @keyframes floatUp{
-  0%{
-    transform:translateY(0) scale(1);
-    opacity:0;
-  }
+  0%{transform:translateY(0) scale(1);opacity:0;}
   20%{opacity:0.6;}
-  100%{
-    transform:translateY(-110vh) scale(1.4);
-    opacity:0;
-  }
+  100%{transform:translateY(-110vh) scale(1.3);opacity:0;}
 }
 
-/* ===== SLIDESHOW ===== */
+/* SLIDESHOW */
 #slideshow{
   position:fixed;
   inset:0;
@@ -114,17 +103,17 @@ h1{font-size:38px;}
 
 <body>
 
-<!-- ===== SCREEN 1 ===== -->
+<!-- SCREEN 1 -->
 <div id="screen1" class="screen active">
   <h1>Welcome 💕</h1>
 
   <div id="continueBox" style="display:none;">
-    <div class="caption"></div>
+    <div class="caption">Hold your excitement and press continue</div>
     <button class="btn" onclick="goContinue()">Continue</button>
   </div>
 </div>
 
-<!-- ===== SCREEN 2 ===== -->
+<!-- SCREEN 2 -->
 <div id="screen2" class="screen">
   <div id="line"></div>
 
@@ -134,13 +123,13 @@ h1{font-size:38px;}
   </div>
 </div>
 
-<!-- ===== SLIDESHOW ===== -->
+<!-- SLIDESHOW -->
 <div id="slideshow" class="screen"></div>
 
-<audio id="song" src="song.mp3"></audio>
+<audio id="song" src="song.mp3" preload="auto"></audio>
 
 <script>
-/* ===== CONTINUE BUTTON DELAY ===== */
+/* CONTINUE DELAY */
 setTimeout(()=>{
   document.getElementById("continueBox").style.display="block";
 },3500);
@@ -151,129 +140,106 @@ function goContinue(){
   startTyping();
 }
 
-/* ===== HEART CONTROL ===== */
-let heartInterval = null;
+/* HEARTS */
+let heartInterval=null;
 
 function startHearts(){
   if(heartInterval) return;
 
-  heartInterval = setInterval(()=>{
+  heartInterval=setInterval(()=>{
+    if(Math.random()>0.15) return;
 
-    // medium frequency (not rare, not heavy)
-    if(Math.random() > 0.1) return;
+    const h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=(5+Math.random()*90)+"vw";
+    h.style.fontSize=(16+Math.random()*6)+"px";
+    h.style.animationDuration=(8+Math.random()*4)+"s";
+    document.body.appendChild(h);
 
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-
-    // FULL SCREEN SPREAD
-    heart.style.left = (5 + Math.random()*90) + "vw";
-
-    // classy size
-    heart.style.fontSize = (16 + Math.random()*6) + "px";
-
-    // slow romantic float
-    heart.style.animationDuration = (8 + Math.random()*4) + "s";
-
-    document.body.appendChild(heart);
-
-    // remove after animation
-    setTimeout(()=>heart.remove(), 15000);
-
-  }, 50); // smooth continuous gap
+    setTimeout(()=>h.remove(),14000);
+  },120);
 }
 
-
 function stopHearts(){
-  if(heartInterval){
-    clearInterval(heartInterval);
-    heartInterval = null;
-  }
+  clearInterval(heartInterval);
+  heartInterval=null;
   document.querySelectorAll(".heart").forEach(h=>h.remove());
 }
 
-/* ===== ROMANTIC LINES ===== */
+/* LINES */
 const lines=[
 "Hi madhu ala vunnav nikku ami nuvvu bane vunatav le",
- "Anthi edhu msg cheyadam ledhu marchipoyadu ani anukuntunnava anthi",
- "Alanti alochanalu avainna vunthe delete chessai ok na",
- "Inna nenu msg chesinna nuvvu busy kadha",
- "Andukey nikku msg chessi enduku disturb cheyadam ani msg cheyaledhu",
- "Ponile gani nikku okka chinna vishayam chepadaniki vacha",
- "Eroju Propose Day nikku teluso ledho marri 😅",
- "Inna teliyaka poinna nenu vunna ga gurthu cheyadaniki 😜",
- "So",
-  "HAPPY PROPOSE DAY MADHU🌹😘",
- "LOVE U SO MUCH RA ❤️❤️❤️❤️",
- "Nikku estamo ledho nakku telidhu kani",
- "I will not stop loving you till my last breath",
- "So koncham na proposal gurinchi alochinchu ok na",
- "Love is a feeling words can’t explain 💖",
- "Every heartbeat feels special when I think about you 💕",
-  "Nuvvu accept chesinna cheyakapoina last line matram nijam",
- "Once again Happy Propose Day MADHU 🌹",
- "Love you soooo much ❤️"
+"Anthi edhu msg cheyadam ledhu marchipoyadu ani anukuntunnava",
+"Alanti alochanalu avaina vunthe delete chesey ok na",
+"Eroju Propose Day kadha nikku teluso ledho 😅",
+"So...",
+"HAPPY PROPOSE DAY 🌹",
+"LOVE YOU SO MUCH ❤️",
+"Every heartbeat feels special when I think about you 💕"
 ];
 
-let lineIndex=0;
-let charIndex=0;
+let li=0, ci=0;
 const lineDiv=document.getElementById("line");
 
 function startTyping(){
   startHearts();
 
-  if(lineIndex>=lines.length){
+  if(li>=lines.length){
     stopHearts();
     document.getElementById("startBox").style.display="block";
     return;
   }
 
-  if(charIndex < lines[lineIndex].length){
-    lineDiv.innerHTML += lines[lineIndex].charAt(charIndex);
-    charIndex++;
-    setTimeout(startTyping,90); // slow typing
+  if(ci<lines[li].length){
+    lineDiv.innerHTML+=lines[li].charAt(ci++);
+    setTimeout(startTyping,90);
   }else{
     setTimeout(()=>{
       lineDiv.innerHTML="";
-      charIndex=0;
-      lineIndex++;
+      ci=0; li++;
       startTyping();
     },1600);
   }
 }
 
-/* ===== PHOTOS + SONG ===== */
+/* ===== STABLE PHOTO + SONG SYNC ===== */
 function startShow(){
-  stopHearts(); // ❌ NO HEARTS AFTER THIS
+  stopHearts();
 
   screen2.classList.remove("active");
   slideshow.classList.add("active");
 
   const song=document.getElementById("song");
-  let slides=[];
+  song.pause();
+  song.currentTime=0;
+
+  const slides=[];
   let i=1;
 
-  function loadNext(){
+  function loadImage(){
     const img=new Image();
     img.src=`photo${i}.jpg`;
     img.onload=()=>{
-      const div=document.createElement("div");
-      div.className="slide";
-      div.appendChild(img);
-      slideshow.appendChild(div);
-      slides.push(div);
+      const d=document.createElement("div");
+      d.className="slide";
+      d.appendChild(img);
+      slideshow.appendChild(d);
+      slides.push(d);
       i++;
-      loadNext();
+      loadImage();
     };
   }
-  loadNext();
+  loadImage();
 
+  // WAIT until images loaded properly
   setTimeout(()=>{
-    let index=0;
     if(slides.length===0) return;
 
+    let index=0;
     slides[0].classList.add("active");
-    song.play();
+
+    song.play().catch(()=>{});
 
     const interval=setInterval(()=>{
       slides[index].classList.remove("active");
@@ -286,7 +252,8 @@ function startShow(){
         slides[index].classList.add("active");
       }
     },4000);
-  },800);
+
+  },1200);
 }
 </script>
 
