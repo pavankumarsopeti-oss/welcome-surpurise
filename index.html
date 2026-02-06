@@ -158,22 +158,31 @@ function startHearts(){
   if(heartInterval) return;
 
   heartInterval = setInterval(()=>{
-    // VERY RARE + RANDOM
-    if(Math.random() > 0.25) return;
+
+    // medium frequency (not rare, not heavy)
+    if(Math.random() > 0.45) return;
 
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "💖";
 
-    heart.style.left = (15 + Math.random()*70) + "vw";
-    heart.style.fontSize = (16 + Math.random()*4) + "px";
-    heart.style.animationDuration = (9 + Math.random()*2) + "s";
+    // FULL SCREEN SPREAD
+    heart.style.left = (5 + Math.random()*90) + "vw";
+
+    // classy size
+    heart.style.fontSize = (16 + Math.random()*6) + "px";
+
+    // slow romantic float
+    heart.style.animationDuration = (8 + Math.random()*4) + "s";
 
     document.body.appendChild(heart);
 
-    setTimeout(()=>heart.remove(),55000);
-  }, 900); // 🔥 BIG GAP between hearts
+    // remove after animation
+    setTimeout(()=>heart.remove(), 15000);
+
+  }, 1100); // smooth continuous gap
 }
+
 
 function stopHearts(){
   if(heartInterval){
