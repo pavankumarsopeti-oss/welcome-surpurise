@@ -159,7 +159,7 @@ function startHearts(){
 
   heartInterval = setInterval(()=>{
     // VERY RARE + RANDOM
-    if(Math.random() > 0.35) return;
+    if(Math.random() > 0.25) return;
 
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -172,7 +172,7 @@ function startHearts(){
     document.body.appendChild(heart);
 
     setTimeout(()=>heart.remove(),55000);
-  }, 1200); // 🔥 BIG GAP between hearts
+  }, 900); // 🔥 BIG GAP between hearts
 }
 
 function stopHearts(){
