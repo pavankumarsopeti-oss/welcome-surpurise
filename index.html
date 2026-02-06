@@ -160,7 +160,7 @@ function startHearts(){
   heartInterval = setInterval(()=>{
 
     // medium frequency (not rare, not heavy)
-    if(Math.random() > 0.1) return;
+    if(Math.random() > 0) return;
 
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -180,7 +180,7 @@ function startHearts(){
     // remove after animation
     setTimeout(()=>heart.remove(), 15000);
 
-  }, 250); // smooth continuous gap
+  }, 150); // smooth continuous gap
 }
 
 
